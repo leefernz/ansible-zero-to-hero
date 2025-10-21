@@ -1,0 +1,45 @@
+To make password auth from local to remote(ec2 managed node) follow below steps :
+
+✅ Here’s What You Should Do (Step-by-Step)
+Step 1 — Generate a new key pair on your Mac (control node)
+
+Run this in your Mac terminal:
+
+ssh-keygen -t rsa -b 4096 -C "ansible"
+
+
+When prompted:
+
+Save to default location (/Users/leeroy/.ssh/id_rsa)
+
+Leave passphrase empty for now
+
+This will create:
+
+Private key → ~/.ssh/id_rsa
+
+Public key → ~/.ssh/id_rsa.pub
+
+Step 2 — Use your existing .pem key to copy the new public key to the remote (managed) node
+
+Run this:
+
+ssh-copy-id -i ~/.ssh/id_rsa.pub -o "IdentityFile ~/Downloads/ansible.pem" ubuntu@54.91.179.20
+
+
+🧠 What this does:
+
+Uses your .pem key temporarily to authenticate to the EC2 instance
+
+Copies your local public key (id_rsa.pub) to the remote instance’s ~/.ssh/authorized_keys file
+
+After this, you can SSH without using the .pem file
+
+Step 3 — Test passwordless SSH
+
+Now try:
+
+ssh ubuntu@54.91.179.20
+
+
+If setup worked, you’ll log in directly — no .pem file or password needed 🎉
