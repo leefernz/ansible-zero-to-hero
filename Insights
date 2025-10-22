@@ -1,1 +1,10 @@
 Day 2 -
+Inventory command -
+ansible -i inventory.ini -m ping all
+ansible -i inventory.ini -m shell -a "sudo apt install openjdk" all
+ansible -i inventory.ini -m shell -a "sudo ls /etc" db - it runs only on db group
+
+
+Day 3 -
+ansible-playbook -i inventory.ini playbook.yml
+for ansible module doc refer -> collection index-> collection in ansible namspace-> builin ansible
