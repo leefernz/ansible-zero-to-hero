@@ -8,3 +8,49 @@ ansible -i inventory.ini -m shell -a "sudo ls /etc" db - it runs only on db grou
 Day 3 -
 ansible-playbook -i inventory.ini playbook.yml
 for ansible module doc refer -> collection index-> collection in ansible namspace-> builin ansible
+
+Day4 - Roles
+Create roles structure folder using command - ansible-galaxy role init "name of the role"
+how to use handlers see below example :
+tasks:
+- name: Template configuration file
+  ansible.builtin.template:
+    src: template.j2
+    dest: /etc/foo.conf
+  notify:
+    - Restart apache
+    - Restart memcached
+
+handlers:
+  - name: Restart memcached
+    ansible.builtin.service:
+      name: memcached
+      state: restarted
+
+  - name: Restart apache
+    ansible.builtin.service:
+      name: apache
+      state: restarted
+
+day5:Ansible galaxy 
+
+how do you import a module from galaxy - ansible-galaxy role install "name of the module"
+
+
+Day6 : vault - refer the document and come back here
+to provision the playbook with vault password use the command - ansible-playbook -i inventory.ini playbook.yml --vault--password--file "name of the file"
+
+variables:
+In ansible we can declare the variable in 2 types
+how to call variable - lets say u have stored a variable in default -> main.yml file called type when u call u have to write in ninja2 template standard 
+"{{ type }}" - this will directly call the variable
+if we provide value in vars folder it will pick it before the default file value. because vars folder has highest priority than default.
+the highest priority var in ansible is extra vars ie -> -e type=t2.micro at the end of the command.
+group_vars -> it used when u want to apply specific type of instances from inventory.ini file. for ex for app and db instances. in order to use group vars
+create a group_vars folder and insdie that create app.yaml or db.yaml
+
+
+day 8 - error handling
+the order of execution -> connection to all hosts-> execute task1 in all hosts -> then go to task2 in all hosts(one by one host execution)
+to continue with next step even if the task1 failed use command - ignor_errors: yes
+refer the code from doc for when (its a condition in ansible)
