@@ -54,3 +54,14 @@ day 8 - error handling
 the order of execution -> connection to all hosts-> execute task1 in all hosts -> then go to task2 in all hosts(one by one host execution)
 to continue with next step even if the task1 failed use command - ignor_errors: yes
 refer the code from doc for when (its a condition in ansible)
+
+
+spacelift ->
+main components -
+stack - here u can define terraform ansible resouces or many more
+space - it manages the variuos env like dev qa prod
+context - here we can define vars or volumes and can be shared across stacks
+cloud integration - aws azure we can configure
+policy - we can define the security policies here
+
+
